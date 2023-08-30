@@ -4,17 +4,11 @@ import { refs } from "./js/refs";
 
 import { debounce } from "lodash";
 
-
-
-
-  
-
-refs.form.addEventListener('submit', debounce(onSubmitBtnClick, 1000))
+refs.form.addEventListener('submit', debounce(onSubmitBtnClick, 300))
 
 function onSubmitBtnClick(event) {
     event.preventDefault();
-    console.log('jkhkjhk')
-    const searchItem = event.currentTarget[0].value;
+     const searchItem = event.currentTarget[0].value;
     console.log(searchItem)
    
     function getAllpictures() {
