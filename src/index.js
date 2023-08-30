@@ -1,10 +1,19 @@
+
 import { createMarkup } from "./js/api";
 import { refs } from "./js/refs";
 
-refs.form.addEventListener('click', onSubmitBtnClick)
+import { debounce } from "lodash";
+
+
+
+
+  
+
+refs.form.addEventListener('submit', debounce(onSubmitBtnClick, 1000))
 
 function onSubmitBtnClick(event) {
     event.preventDefault();
+    console.log('jkhkjhk')
     const searchItem = event.currentTarget[0].value;
     console.log(searchItem)
    
@@ -18,7 +27,8 @@ function onSubmitBtnClick(event) {
     image_type: 'photo',
       safesearch: true,
     
-});
+    });
+        refs.gallery.innerHTML = "";
   return fetch(`${baseURL}?${searchParams}`)
   .then((response) => response.json())
     }
