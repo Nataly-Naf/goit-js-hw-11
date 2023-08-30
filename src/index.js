@@ -1,5 +1,5 @@
 
-import { createMarkup } from "./js/api";
+import { createMarkup, getImages } from "./js/api";
 import { refs } from "./js/refs";
 
 import { debounce } from "lodash";
@@ -11,22 +11,22 @@ function onSubmitBtnClick(event) {
      const searchItem = event.currentTarget[0].value;
     console.log(searchItem)
    
-    function getAllpictures() {
- const baseURL = 'https://pixabay.com/api/'
+//     function getAllpictures() {
+//  const baseURL = 'https://pixabay.com/api/'
       
-    const searchParams = new URLSearchParams({
-      key: "5826986-30cf6df7309c66ae8af35763a",
-      q: event.currentTarget[0].value,
-    orientation: 'horizontal',
-    image_type: 'photo',
-      safesearch: true,
+//     const searchParams = new URLSearchParams({
+//       key: "5826986-30cf6df7309c66ae8af35763a",
+//       q: event.currentTarget[0].value,
+//     orientation: 'horizontal',
+//     image_type: 'photo',
+//       safesearch: true,
     
-    });
-        refs.gallery.innerHTML = "";
-  return fetch(`${baseURL}?${searchParams}`)
-  .then((response) => response.json())
-    }
-    getAllpictures().then((resp) => refs.gallery.innerHTML = createMarkup(resp.hits))
+//     });
+//         refs.gallery.innerHTML = "";
+//   return fetch(`${baseURL}?${searchParams}`)
+//   .then((response) => response.json())
+//     }
+    getImages(searchItem, 1).then((resp) => refs.gallery.innerHTML = createMarkup(resp.hits))
    
 }
 
