@@ -4,7 +4,7 @@ import { refs } from "./js/refs";
 
 import { debounce } from "lodash";
 
-refs.form.addEventListener('submit', debounce(onSubmitBtnClick, 300))
+refs.form.addEventListener('submit', onSubmitBtnClick)
 
 function onSubmitBtnClick(event) {
     event.preventDefault();
