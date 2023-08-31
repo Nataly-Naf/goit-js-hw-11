@@ -1,11 +1,16 @@
 
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
  import axios from 'axios';
 import Notiflix from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
 import { refs } from './refs';
 
+// const options = {
+//         root: null,
+//         rootMargin: "300px",
+//     }
+// const observer = new IntersectionObserver(handlerLoadMore, options)
+
+   
 const URL = 'https://pixabay.com/api/';
 const perPage = 40;
 const getImages = async (value, page) => {
@@ -25,7 +30,9 @@ const getImages = async (value, page) => {
      Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
     }  
     if ((page*perPage)< response.data.totalHits) {
-      refs.loadMoreBtn.classList.remove('load-more-hidden')
+      refs.loadMoreBtn.classList.remove('load-more-hidden');
+      // console.log(typeof(refs.guard))
+      // observer.observe(refs.guard)
     }
     else {
       refs.loadMoreBtn.classList.add('load-more-hidden');
@@ -63,11 +70,14 @@ export function createMarkup(arr) {
 </div>` ).join('')
 }
 
-const lightbox = new SimpleLightbox('.gallery__link', { 
-            showImageNumberLabel: false,
-            overlay: false,
-            captionDelay: 250,
-            animationSlide: true,
-            captionType: 'attr',
-            captionsData: 'alt'
-        });
+
+
+
+//         function handlerLoadMore(entries){
+//     entries.forEach(entry => {
+//         console.log (entry)
+//         // entry.isIntersecting
+        
+//     });
+
+// }

@@ -49,6 +49,22 @@
     justify-content: space-around;
     flex-wrap: nowrap;
 }
+.js-load-more{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width:150px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: rgb(231, 216, 190);
+  margin-top: 20px;
+  margin-bottom: 20px;
+   
+}
+.js-load-more:hover {
+   background-color: orange;  
+
+}
 
 .load-more-hidden{
   opacity: 0;
@@ -56,13 +72,13 @@
   pointer-events: none;
 }
 
-.gallery__link {
-  display: block;
-  text-decoration: none;
-  height: 100%;
-}
+// .gallery__link {
+//   display: block;
+//   text-decoration: none;
+//   height: 100%;
+// }
 
-.gallery__link:hover {
-  cursor: zoom-in;
-}
+// .gallery__link:hover {
+//   cursor: zoom-in;
+// }
 
