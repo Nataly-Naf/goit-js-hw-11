@@ -1,49 +1,42 @@
-
+import SimpleLightbox from "simplelightbox";
+import 'simplelightbox/dist/simple-lightbox.min.css'
 import { createMarkup, getImages } from "./js/api";
 import { refs } from "./js/refs";
-
-import { debounce } from "lodash";
+    const lightbox = new SimpleLightbox('.gallery__link', { 
+            showImageNumberLabel: false,
+            overlay: false,
+            captionDelay: 250,
+            animationSlide: true,
+            captionType: 'attr',
+            captionsData: 'alt'
+        });
 
 refs.form.addEventListener('submit', onSubmitBtnClick)
 
 function onSubmitBtnClick(event) {
     event.preventDefault();
+    refs.gallery.innerHTML=''
      const searchItem = event.currentTarget[0].value;
     console.log(searchItem)
+    let page = 1
+
+    getImages(searchItem, page)  
+        .then((resp) => refs.gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits)))
+
+     lightbox.refresh()
    
-//     function getAllpictures() {
-//  const baseURL = 'https://pixabay.com/api/'
-      
-//     const searchParams = new URLSearchParams({
-//       key: "5826986-30cf6df7309c66ae8af35763a",
-//       q: event.currentTarget[0].value,
-//     orientation: 'horizontal',
-//     image_type: 'photo',
-//       safesearch: true,
+    refs.loadMoreBtn.addEventListener('click', onLoadMoreBtnClick)
+    function onLoadMoreBtnClick() {
+    page += 1
+    console.log('click')
+        getImages(searchItem, page)
+            .then((resp) => refs.gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits))
+        )
+        lightbox.refresh()
+        
     
-//     });
-//         refs.gallery.innerHTML = "";
-//   return fetch(`${baseURL}?${searchParams}`)
-//   .then((response) => response.json())
-//     }
-    getImages(searchItem, 1).then((resp) => refs.gallery.innerHTML = createMarkup(resp.hits))
+}
    
 }
-
-// function getAllpictures() {
-//  const baseURL = 'https://pixabay.com/api/'
-      
-//     const searchParams = new URLSearchParams({
-//       key: "5826986-30cf6df7309c66ae8af35763a",
-//       q: event.currentTarget[0].value,
-//     orientation: 'horizontal',
-//     image_type: 'photo',
-//       safesearch: true,
-    
-// });
-//   return fetch(`${baseURL}?${searchParams}`)
-//   .then((response) => response.json())
-//   }  
-
 
 

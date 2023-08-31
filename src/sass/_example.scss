@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
 }
-.gallery{
+.all-items-gallery{
   margin-top: 30px;
   display: flex;
   gap: 20px;
@@ -28,9 +28,16 @@
   align-items: center;  
 }
 
+.gallery {
+  width: 100%;
+  height: 350px;  
+}
 .img{
-  width:100%;
+  display: block;
+    object-fit: cover;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
   
 }
 
@@ -42,3 +49,20 @@
     justify-content: space-around;
     flex-wrap: nowrap;
 }
+
+.load-more-hidden{
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.gallery__link {
+  display: block;
+  text-decoration: none;
+  height: 100%;
+}
+
+.gallery__link:hover {
+  cursor: zoom-in;
+}
+

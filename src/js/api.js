@@ -1,7 +1,10 @@
- 
+
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
  import axios from 'axios';
 import Notiflix from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
+import { refs } from './refs';
 
 const URL = 'https://pixabay.com/api/';
 const perPage = 40;
@@ -18,18 +21,31 @@ const getImages = async (value, page) => {
         per_page: perPage,
       },
     });
+            if (response.data.hits.length===0) {
+     Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+    }  
+    if ((page*perPage)< response.data.totalHits) {
+      refs.loadMoreBtn.classList.remove('load-more-hidden')
+    }
+    else {
+      refs.loadMoreBtn.classList.add('load-more-hidden');
+      Notiflix.Notify.failure('We are sorry, but you have reached the end of search results.');
+    }
     return response.data;
   } catch (error) {
+
     Notiflix.Notify.failure('An error occurred while fetching images.');
     throw error;
   }
 };
+
+
 export { getImages };
 
 export function createMarkup(arr) {
     console.log(arr)
-    return arr.map(({userImageURL,likes, views, comments, downloads})=>`<div class="photo-card">
-  <img src="${userImageURL}" class="img" alt="" loading="lazy" />
+    return arr.map(({webformatURL,likes, views, comments, downloads, largeImageURL})=>`<div class="photo-card">
+  <div class="gallery"> <a class="gallery__link" href="${largeImageURL}"> <img src="${webformatURL}" class="img" alt="" loading="lazy" /> </a> </div>
   <div class="info">
     <p class="info-item">
       Likes<b>${likes}</b>
@@ -47,4 +63,11 @@ export function createMarkup(arr) {
 </div>` ).join('')
 }
 
-
+const lightbox = new SimpleLightbox('.gallery__link', { 
+            showImageNumberLabel: false,
+            overlay: false,
+            captionDelay: 250,
+            animationSlide: true,
+            captionType: 'attr',
+            captionsData: 'alt'
+        });
