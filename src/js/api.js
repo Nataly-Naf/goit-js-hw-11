@@ -2,13 +2,7 @@
  import axios from 'axios';
 import Notiflix from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
-import { refs } from './refs';
 
-// const options = {
-//         root: null,
-//         rootMargin: "300px",
-//     }
-// const observer = new IntersectionObserver(handlerLoadMore, options)
 
    
 const URL = 'https://pixabay.com/api/';
@@ -25,22 +19,9 @@ const getImages = async (value, page) => {
         page: page,
         per_page: perPage,
       },
-    });
-            if (response.data.hits.length===0) {
-     Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
-    }  
-    if ((page*perPage)< response.data.totalHits) {
-      refs.loadMoreBtn.classList.remove('load-more-hidden');
-      // console.log(typeof(refs.guard))
-      // observer.observe(refs.guard)
-    }
-    else {
-      refs.loadMoreBtn.classList.add('load-more-hidden');
-      Notiflix.Notify.failure('We are sorry, but you have reached the end of search results.');
-    }
+    });            
     return response.data;
   } catch (error) {
-
     Notiflix.Notify.failure('An error occurred while fetching images.');
     throw error;
   }
@@ -49,35 +30,8 @@ const getImages = async (value, page) => {
 
 export { getImages };
 
-export function createMarkup(arr) {
-    console.log(arr)
-    return arr.map(({webformatURL,likes, views, comments, downloads, largeImageURL})=>`<div class="photo-card">
-  <div class="gallery"> <a class="gallery__link" href="${largeImageURL}"> <img src="${webformatURL}" class="img" alt="" loading="lazy" /> </a> </div>
-  <div class="info">
-    <p class="info-item">
-      Likes<b>${likes}</b>
-    </p>
-    <p class="info-item">
-      Views<b>${views}</b>
-    </p>
-    <p class="info-item">
-      Comments<b>${comments}</b>
-    </p>
-    <p class="info-item">
-      Downloads<b>${downloads}</b>
-    </p>
-  </div>
-</div>` ).join('')
-}
 
 
 
 
-//         function handlerLoadMore(entries){
-//     entries.forEach(entry => {
-//         console.log (entry)
-//         // entry.isIntersecting
-        
-//     });
 
-// }
