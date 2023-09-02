@@ -53,7 +53,7 @@ async function onSubmitForm(event) {
         }
         lightbox.refresh();
         
-          console.log(resp)          
+                  
     }  
            
     catch (Error) { console.log(Error) }
