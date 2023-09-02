@@ -1,5 +1,5 @@
 export function createMarkup(arr) {
-    console.log(arr)
+
     return arr.map(({webformatURL,likes, views, comments, downloads, largeImageURL})=>`<div class="photo-card">
   <div class="gallery"> <a class="gallery__link" href="${largeImageURL}"> <img src="${webformatURL}" class="img" alt="" loading="lazy" /> </a> </div>
   <div class="info">
