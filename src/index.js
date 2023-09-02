@@ -65,7 +65,7 @@ async function onSubmitForm(event) {
        console.log(searchItem)
        page += 1;       
               try {
-        resp = await getImages(searchItem, page)           
+       const resp = await getImages(searchItem, page)           
                                            
                 refs.gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
                   lightbox.refresh();
