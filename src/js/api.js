@@ -4,6 +4,7 @@
    
 const URL = 'https://pixabay.com/api/';
 const perPage = 40;
+
 const getImages = async (value, page) => {
   
     const response = await axios.get(`${URL}`, {

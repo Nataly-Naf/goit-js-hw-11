@@ -16,15 +16,18 @@ import { createMarkup } from "./js/render";
      });
         
 refs.form.addEventListener('submit', onSubmitForm)
-let page = 1;
+let searchItem = null;
+let page;
 async function onSubmitForm(event) {
     event.preventDefault();
     refs.gallery.innerHTML = '';
-    let searchItem = (event.currentTarget[0].value).trim()
-        
-    console.log(searchItem)
-        
+page = 1; 
+    
+    
     try {
+         
+        searchItem = event.currentTarget[0].value.trim() 
+        console.log(searchItem)
         const resp = await getImages(searchItem, page)
         
          if (!resp.status==='200') {throw new Error(resp.statusText)         
@@ -38,8 +41,7 @@ async function onSubmitForm(event) {
         throw new Error(Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.'))
    
     }  
-    
-      
+          
         refs.gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
         
         
@@ -60,19 +62,24 @@ async function onSubmitForm(event) {
     
     
     refs.loadMoreBtn.addEventListener('click', onLoadMoreBtnClick);
+    
+    
     async function onLoadMoreBtnClick() {
-
-       console.log(searchItem)
-       page += 1;       
-              try {
-       const resp = await getImages(searchItem, page)           
+  
+        page += 1;  
+      
+        try {
+                  
+        console.log(searchItem)  
+     const newResp = await getImages(searchItem, page)           
                                            
-                refs.gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
-                  lightbox.refresh();
-            if (page>= resp.totalHits/40) {
-                    refs.loadMoreBtn.classList.add('load-more-hidden');
+                refs.gallery.insertAdjacentHTML('beforeend', createMarkup(newResp.hits));
+            lightbox.refresh();
+            refs.loadMoreBtn.classList.add('load-more-hidden');
+            if (page< newResp.totalHits/40) {
+                    refs.loadMoreBtn.classList.remove('load-more-hidden');
                     Notiflix.Notify.failure('We are sorry, but you have reached the end of search results.');
-                     
+                   
          } 
                       
        }
